@@ -19,8 +19,15 @@ if __name__ == "__main__":
     if findnumtop == "0":
         while True:
             extrmethod = input("Type 0 for LDA, 1 for LSI or 2 for HDP: ")
-            if extrmethod in ('0', '1', '2'):
+            if extrmethod in ('0', '1'):
+                while True:
+                    ntopics = int(input("Define the number of topics: "))
+                    if 0 < ntopics <= 50:
+                        break
                 break
+            elif extrmethod in ('2'):
+                break
+
     else:
         while True:
             extrmethod = input("Type 0 for LDA or 1 for LSI: ")
@@ -113,11 +120,11 @@ if __name__ == "__main__":
     if (findnumtop == "0"):
         if (extrmethod == "0"):
             docname += "LDA.txt"
-            model =  gensim.models.LdaMulticore(corpus=vect, id2word=dictionary, num_topics=10, workers=3, passes=100, chunksize=2000) #create lda model
+            model =  gensim.models.LdaMulticore(corpus=vect, id2word=dictionary, num_topics=ntopics, workers=3, passes=100, chunksize=2000) #create lda model
 
         elif (extrmethod == "1"):
             docname += "LSI.txt"
-            model = gensim.models.LsiModel(corpus=vect, id2word=dictionary, num_topics=4) #create lsi model
+            model = gensim.models.LsiModel(corpus=vect, id2word=dictionary, num_topics=ntopics) #create lsi model
 
         elif  (extrmethod == "2"):
             docname += "HDP.txt"
